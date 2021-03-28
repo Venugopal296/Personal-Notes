@@ -77,10 +77,16 @@ export const Signup = (email, password) => {
           parseInt(response.data.expiresIn) * 1000
         )
       );
+
       const expirationDate = new Date(
-        new Date().getTime() + parseInt(resData.expiresIn) * 1000
+        new Date().getTime() + parseInt(response.data.expiresIn) * 1000
       );
-      saveDataToStorage(resData.idToken, resData.localId, expirationDate);
+
+      saveDataToStorage(
+        response.data.idToken,
+        response.data.localId,
+        expirationDate
+      );
     } catch (err) {
       let message = 'Something went wrong!';
       if (err.response.data.error.message === 'EMAIL_EXISTS') {
